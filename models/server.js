@@ -1,17 +1,27 @@
 const express = require("express");
 const cors = require("cors");
+const { dbConnection } = require("../database/config.js");
+
 
 class Server {
   constructor() {
     this.app = express();
-    this.port = process.env.PORT || 3000;
+    this.port = process.env.PORT;
     //Rutas disponibles e existentes en la aplicacion
-    this.usuariosPath = '/api/usuarios'
-
+    this.paths = {
+      AdmonRestaurant:'/api/AdmonRestaurant',
+      Search         :'/api/Search'          
+    }
+ 
+    this.connectDB()
     //Middlewares ---> siempre se ejecutara cuando levantemos nuestro servidor;
     this.middlewares();
     //Rutas de mi aplicacion
     this.routes();
+  }
+
+  async connectDB() {
+    await dbConnection()
   }
 
   middlewares() {
@@ -24,9 +34,8 @@ class Server {
   }
 
   routes() {
-
-    this.app.use( this.usuariosPath, require('../routes/user.js'));
-    
+    this.app.use( this.paths.AdmonRestaurant, require('../routes/AdmonRestaurant.js'));
+    this.app.use( this.paths.Search, require('../routes/Search.js'))
   };
   listen() {
     this.app.listen(this.port, () => {
