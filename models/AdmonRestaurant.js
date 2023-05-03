@@ -12,11 +12,11 @@ const RestaurantSchema = Schema ({
     },
     address: {
         type: String,
-        required: true, 
+        required: [true, 'La Direccion es obligatorio'] 
     },
     city: {
         type: String, 
-        required: true
+        required: [true, 'La Ciudad es obligatorio']
     },
     ImgRestaurant: {
         type: String,

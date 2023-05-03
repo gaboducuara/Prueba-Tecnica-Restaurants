@@ -1,7 +1,8 @@
 const express = require("express");
 const cors = require("cors");
-const { dbConnection } = require("../database/config.js");
+const fileUpload = require('express-fileupload')
 
+const { dbConnection } = require("../database/config.js");
 
 class Server {
   constructor() {
@@ -10,7 +11,8 @@ class Server {
     //Rutas disponibles e existentes en la aplicacion
     this.paths = {
       AdmonRestaurant:'/api/AdmonRestaurant',
-      Search         :'/api/Search'          
+      Search         :'/api/Search',
+      UploadImg      :'/api/UploadImg'         
     }
  
     this.connectDB()
@@ -30,12 +32,20 @@ class Server {
     // parseo y lectura del body, cualquier informacion que venga con POST, PUT, PATCH, DELETE .. la intenta serializar en formato JSON
     this.app.use(express.json())
     //Directorio publicos
-    this.app.use(express.static("public"));
+    this.app.use(express.static("public"))
+
+    // Carga de archivo
+    this.app.use(fileUpload({
+      useTempFiles: true,
+      TempFileDir :'/tmp/',
+      createParentPath: true
+    }));
   }
 
   routes() {
     this.app.use( this.paths.AdmonRestaurant, require('../routes/AdmonRestaurant.js'));
     this.app.use( this.paths.Search, require('../routes/Search.js'))
+    this.app.use( this.paths.UploadImg, require('../routes/uploads.js'))
   };
   listen() {
     this.app.listen(this.port, () => {
