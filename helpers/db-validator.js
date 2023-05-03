@@ -4,7 +4,6 @@ const Restaurant  = require('../models/AdmonRestaurant.js');
 
  /// --------> Validamos si el nombre del restaurante existe
 const ExistName = async ( name = '') => {
-    // verificar si el correo existe
    const ExistName = await Restaurant.findOne({ name })
    if ( ExistName ) {
      throw new Error(`El Nombre: ${ name } , ya esta registrado`)
@@ -13,7 +12,6 @@ const ExistName = async ( name = '') => {
 
   /// --------> Validamos si la Descripcion del restaurante existe
 const ExistDescription = async ( description = '') => {
-    // verificar si el correo existe
    const ExistDescription = await Restaurant.findOne({ description })
    if ( ExistDescription ) {
      throw new Error(`La Descripcion: ${ description } , ya esta registrado`)
@@ -22,7 +20,6 @@ const ExistDescription = async ( description = '') => {
 
   /// --------> Validamos si la direccion del restaurante existe
 const ExistAddress = async ( address = '') => {
-    // verificar si el correo existe
    const ExistAddress = await Restaurant.findOne({ address })
    if ( ExistAddress ) {
      throw new Error(`La Direccion: ${ address } , ya esta registrado`)
@@ -38,12 +35,22 @@ const ExistCity = async ( city = '') => {
    }
  }
 
- const ExistImgUrl = async ( ImgRestaurant = '') => {
-  // verificar si el correo existe
+const ExistImgUrl = async ( ImgRestaurant = '') => {
  const ExistImgUrl = await Restaurant.findOne({ ImgRestaurant })
  if ( ExistImgUrl ) {
    throw new Error(`La Foto Url del restarante: ${ ImgRestaurant } , ya esta registrado`)
  }
+}
+
+
+const collecionesImg = ( coleccion = '' , colecciones = []) => {
+
+  const incluida = colecciones.includes( coleccion );
+  if(!incluida) {
+    throw new Error(`La coleccion ${ coleccion } no es permitida, ${ colecciones }`)
+  }
+
+  return true
 }
 
    /// --------> Validamos si el ID Existe
@@ -67,5 +74,6 @@ const ExistCity = async ( city = '') => {
     ExistAddress,
     ExistCity,
     ExistId,
-    ExistImgUrl
+    // ExistImgUrl,
+    collecionesImg
  }

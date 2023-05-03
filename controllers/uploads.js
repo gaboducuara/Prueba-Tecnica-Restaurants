@@ -1,39 +1,89 @@
 const path = require('path')
-const { v4: uuidv4 } = require('uuid')
-
+const fs = require('fs')
 const { response } = require("express");
+const UploadArchive = require("../helpers/upload-archive");
 
-const uploadFiles = (req, res = response) => {
+const Restaurant = require("../models/AdmonRestaurant");
 
-    // validacion de los archivos
-  if (!req.files || Object.keys(req.files).length === 0 || !req.files.archivo) {
-    res.status(400).json({msg:'No hay archivos que subir.'});
-    return;
+// cargando archivos al path
+const uploadFiles = async (req, res = response) => {
+  try {
+    const nameArchive = await UploadArchive(req.files, undefined, "imgs");
+    res.json({ nameArchive });
+  } catch (msg) {
+    res.status(400).json({ msg });
+  }
+};
+
+const imgActualizate = async (req, res = response) => {
+
+  const { id, colleccion } = req.params;
+
+  let modelo;
+
+  switch (colleccion) {
+    case "Restaurant":
+      modelo = await Restaurant.findById(id);
+      if (!modelo) {
+        return res.status(400).json({
+          msg: `No existe un Restaurante con el id ${id}`,
+        });
+      }
+      break;
+
+    default:
+      return res.status(500).json({ msg: "Se me olvido validar esto" });
   }
 
-  // validacion del nombre de los archivos
-    const { archivo } = req.files;
-    const nameCut = archivo.name.split('.');
-    const extension = nameCut[nameCut.length -1];
+  if(modelo.ImgRestaurant) {
+    const pathImg = path.join( __dirname, '../uploads' , colleccion, modelo.ImgRestaurant);
+    if(fs.existsSync( pathImg )) {
+      fs.unlinkSync ( pathImg );
+    }
+  }
 
-    // Validar extension
-    const extensionValite = ['png' , 'jpg' , 'jpeg' , 'gif'];
-    if(!extensionValite.includes(extension)) {
-        return res.status(400).json ({
-            msg: `La extension ${ extension} no es permitida, ${extensionValite}`
-        }); 
-    };
-        // validacion del ID de la extension 
-    const nameTemp = uuidv4() + '.' + extension;
-    const uploadPath = path.join( __dirname , '../uploads' , nameTemp );
+  const nameArchive = await UploadArchive(req.files, undefined, colleccion);
+  modelo.ImgRestaurant = nameArchive;
 
-    archivo.mv(uploadPath, (err) => {
-        if(err) {
-            return res.status(500).json({ err })
-        }
-        res.json({ msg: 'File upload to ' + uploadPath });
-    });
+  await modelo.save();
+
+  res.json(modelo);
+};
+
+
+const mostrarImg = async(req , res = response ) => {
+  const { id, colleccion } = req.params;
+
+  let modelo;
+
+  switch (colleccion) {
+    case "Restaurant":
+      modelo = await Restaurant.findById(id);
+      if (!modelo) {
+        return res.status(400).json({
+          msg: `No existe un Restaurante con el id ${id}`,
+        });
+      }
+      break;
+
+    default:
+      return res.status(500).json({ msg: "Se me olvido validar esto" });
+  }
+
+
+  // Limpiar imagenes !
+  if(modelo.ImgRestaurant) {
+    // Borrar la imagen del servidor
+    const pathImg = path.join( __dirname, '../uploads' , colleccion, modelo.ImgRestaurant);
+    if(fs.existsSync( pathImg )) {
+      return  res.sendFile( pathImg )
+    }
+  }
+    res.json({ msg:'falta placeholder'})
 }
+
 module.exports = {
-  uploadFiles
-}
+  uploadFiles,
+  imgActualizate,
+  mostrarImg
+};

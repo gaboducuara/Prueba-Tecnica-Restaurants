@@ -20,7 +20,7 @@ const RestaurantSchema = Schema ({
     },
     ImgRestaurant: {
         type: String,
-        required: true
+        // required: true
     },
     state: {
         type: Boolean,
