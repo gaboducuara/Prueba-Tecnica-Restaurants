@@ -58,9 +58,3 @@ Para el entorno de desarrollo de la app se utilizo node js y express para la inf
  - express-fileupload - es un middleware para el marco Express que le proporciona una manera fácil de manejar la carga de archivos utilizando el marco Express.
 
 - UUID - identificador único universal confiable.
-
-## Deploy 🚀
-
-- [LINK BACKEND  ](https://github.com/gaboducuara/Prueba-Tecnica-Restaurants "LINK DEL BACKEND ")
-
-Si llegaste aqui gracias 🙏🏼 me gusta ser leido, Buen Dia.
