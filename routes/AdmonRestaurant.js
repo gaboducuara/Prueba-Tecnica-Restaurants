@@ -11,7 +11,7 @@ const {
 // middlewares
 const { validarCampos } = require('../middlewares/validar-campos');
 /// -------> DB - Validators
-const { ExistName , ExistAddress , ExistCity , ExistDescription , ExistId , ExistImgUrl } = require("../helpers/db-validator");
+const { ExistName , ExistAddress , ExistCity , ExistDescription , ExistId } = require("../helpers/db-validator");
 
 const router = Router();
 

@@ -10,10 +10,14 @@ class Server {
     this.port = process.env.PORT;
     //Rutas disponibles e existentes en la aplicacion
     this.paths = {
+
+      //  CRUD restaurantes
       AdmonRestaurant     :'/api/AdmonRestaurant',
+      // Buscar por nombre de restaurantes
       Search              :'/api/Search',
+     /// --- > se debe agregar /Restaurant/:id, al endpoints para traer imagen
       UploadImg            :'/api/UploadImg',
-      reserverTable        :'/api/reserve'         
+      // reserverTable        :'/api/reserve'       
     }
  
     this.connectDB()
@@ -47,7 +51,7 @@ class Server {
     this.app.use( this.paths.AdmonRestaurant, require('../routes/AdmonRestaurant.js'));
     this.app.use( this.paths.Search, require('../routes/Search.js'))
     this.app.use( this.paths.UploadImg, require('../routes/uploads.js'))
-    this.app.use( this.paths.reserverTable, require('../routes/reserverTable.js'))
+    // this.app.use( this.paths.reserverTable, require('../routes/reserverTable.js'))
   };
 
   listen() {
