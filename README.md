@@ -53,6 +53,12 @@ Para el entorno de desarrollo de la app se utilizo node js y express para la inf
 
  - express-validator - conjunto de middlewares express.js que envuelve el Amplia colección de validadores y desinfectantes ofrecidos por Validator.js.
 
+ - Cloudinary - Es una nube que gestiona videos e imagenes para aplicaciones web y moviles
+
+ - express-fileupload - es un middleware para el marco Express que le proporciona una manera fácil de manejar la carga de archivos utilizando el marco Express.
+
+- UUID - identificador único universal confiable.
+
 ## Deploy 🚀
 
 - [LINK BACKEND  ](https://github.com/gaboducuara/Prueba-Tecnica-Restaurants "LINK DEL BACKEND ")
