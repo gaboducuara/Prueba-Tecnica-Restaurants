@@ -5,7 +5,7 @@ const { check } = require('express-validator')
 const { validarCampos } = require('../middlewares/validar-campos');
 const { ValidateArchive } = require('../middlewares/validar-archive')
  // controlador de archivos
-const { uploadFiles, imgActualizate , mostrarImg} = require('../controllers/uploads');
+const { uploadFiles, imgActualizateCloudinary , mostrarImg} = require('../controllers/uploads');
 const { collecionesImg } = require('../helpers/db-validator');
 
 
@@ -19,7 +19,7 @@ router.put('/:colleccion/:id', [
     check('id' , 'El id debe ser de mongo').isMongoId(),
     check('colleccion').custom( c => collecionesImg (c , ['Restaurant']))
    , validarCampos
-] , imgActualizate)
+] , imgActualizateCloudinary)
 
 router.get('/:colleccion/:id', [] ,
     check('id' , 'El id debe ser de mongo').isMongoId(),

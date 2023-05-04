@@ -35,15 +35,8 @@ const ExistCity = async ( city = '') => {
    }
  }
 
-const ExistImgUrl = async ( ImgRestaurant = '') => {
- const ExistImgUrl = await Restaurant.findOne({ ImgRestaurant })
- if ( ExistImgUrl ) {
-   throw new Error(`La Foto Url del restarante: ${ ImgRestaurant } , ya esta registrado`)
- }
-}
-
-
-const collecionesImg = ( coleccion = '' , colecciones = []) => {
+ ///  --------> Validacion de colecciones - imagenes
+ const collecionesImg = ( coleccion = '' , colecciones = []) => {
 
   const incluida = colecciones.includes( coleccion );
   if(!incluida) {
@@ -54,7 +47,7 @@ const collecionesImg = ( coleccion = '' , colecciones = []) => {
 }
 
    /// --------> Validamos si el ID Existe
-   const ExistId = async ( id ) => {
+const ExistId = async ( id ) => {
     // verificar si el Usuario existe
    if ( mongoose.Types.ObjectId.isValid (id)) {
      const existeId = await Restaurant.findById ( id )
@@ -67,13 +60,12 @@ const collecionesImg = ( coleccion = '' , colecciones = []) => {
  
    }
  }
-
+ 
  module.exports = {
     ExistName,
     ExistDescription,
     ExistAddress,
     ExistCity,
     ExistId,
-    // ExistImgUrl,
     collecionesImg
  }

@@ -51,9 +51,11 @@ Para el entorno de desarrollo de la app se utilizo node js y express para la inf
 
  - nodemon- Te permite monitorear los cambios en el código fuente que se está desarrollando y automáticamente reinicia el servidor.
 
+ - express-validator - conjunto de middlewares express.js que envuelve el Amplia colección de validadores y desinfectantes ofrecidos por Validator.js.
+
 ## Deploy 🚀
 
-- [LINK DEL FRONTEND ](https://github.com/gaboducuara/Vitejs-Administrador-Tareas "LINK DEL FRONTEND ")
+- [LINK BACKEND  ](https://github.com/gaboducuara/Prueba-Tecnica-Restaurants "LINK DEL BACKEND ")
 
 
 

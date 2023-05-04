@@ -1,5 +1,9 @@
 const path = require('path')
 const fs = require('fs')
+
+const cloudinary = require('cloudinary').v2
+cloudinary.config( process.env.CLOUDINARY_URL)
+
 const { response } = require("express");
 const UploadArchive = require("../helpers/upload-archive");
 
@@ -15,7 +19,42 @@ const uploadFiles = async (req, res = response) => {
   }
 };
 
-const imgActualizate = async (req, res = response) => {
+// const imgActualizate = async (req, res = response) => {
+
+//   const { id, colleccion } = req.params;
+
+//   let modelo;
+
+//   switch (colleccion) {
+//     case "Restaurant":
+//       modelo = await Restaurant.findById(id);
+//       if (!modelo) {
+//         return res.status(400).json({
+//           msg: `No existe un Restaurante con el id ${id}`,
+//         });
+//       }
+//       break;
+
+//     default:
+//       return res.status(500).json({ msg: "Se me olvido validar esto" });
+//   }
+
+//   if(modelo.ImgRestaurant) {
+//     const pathImg = path.join( __dirname, '../uploads' , colleccion, modelo.ImgRestaurant);
+//     if(fs.existsSync( pathImg )) {
+//       fs.unlinkSync ( pathImg );
+//     }
+//   }
+
+//   const nameArchive = await UploadArchive(req.files, undefined, colleccion);
+//   modelo.ImgRestaurant = nameArchive;
+
+//   await modelo.save();
+
+//   res.json(modelo);
+// };
+
+const imgActualizateCloudinary = async (req, res = response) => {
 
   const { id, colleccion } = req.params;
 
@@ -36,20 +75,20 @@ const imgActualizate = async (req, res = response) => {
   }
 
   if(modelo.ImgRestaurant) {
-    const pathImg = path.join( __dirname, '../uploads' , colleccion, modelo.ImgRestaurant);
-    if(fs.existsSync( pathImg )) {
-      fs.unlinkSync ( pathImg );
-    }
+    const nameApp = modelo.ImgRestaurant.split('/');
+    const name = nameApp[nameApp.length - 1]
+    const [ public_id ] = name.split('.')
+    cloudinary.uploader.destroy( public_id )
+    // console.log(public_id)
   }
-
-  const nameArchive = await UploadArchive(req.files, undefined, colleccion);
-  modelo.ImgRestaurant = nameArchive;
+  const { tempFilePath } = req.files.archivo
+  const { secure_url} = await cloudinary.uploader.upload( tempFilePath );
+  modelo.ImgRestaurant = secure_url;
 
   await modelo.save();
 
   res.json(modelo);
 };
-
 
 const mostrarImg = async(req , res = response ) => {
   const { id, colleccion } = req.params;
@@ -79,11 +118,12 @@ const mostrarImg = async(req , res = response ) => {
       return  res.sendFile( pathImg )
     }
   }
-    res.json({ msg:'falta placeholder'})
-}
+    const pathImg = path.join( __dirname, '../assets/no-image.jpg');
+    res.sendFile( pathImg );
+  }
 
 module.exports = {
   uploadFiles,
-  imgActualizate,
+  imgActualizateCloudinary,
   mostrarImg
 };

@@ -10,9 +10,10 @@ class Server {
     this.port = process.env.PORT;
     //Rutas disponibles e existentes en la aplicacion
     this.paths = {
-      AdmonRestaurant:'/api/AdmonRestaurant',
-      Search         :'/api/Search',
-      UploadImg      :'/api/UploadImg'         
+      AdmonRestaurant     :'/api/AdmonRestaurant',
+      Search              :'/api/Search',
+      UploadImg            :'/api/UploadImg',
+      reserverTable        :'/api/reserve'         
     }
  
     this.connectDB()
@@ -46,7 +47,9 @@ class Server {
     this.app.use( this.paths.AdmonRestaurant, require('../routes/AdmonRestaurant.js'));
     this.app.use( this.paths.Search, require('../routes/Search.js'))
     this.app.use( this.paths.UploadImg, require('../routes/uploads.js'))
+    this.app.use( this.paths.reserverTable, require('../routes/reserverTable.js'))
   };
+
   listen() {
     this.app.listen(this.port, () => {
       console.log("servidor corriendo en el puerto", this.port);

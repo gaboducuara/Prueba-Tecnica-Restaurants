@@ -17,7 +17,6 @@ const router = Router();
 
 router.get("/", RestaurantGet);
 
-
 router.get('/:id', [
     check('id','No es un Id valido').isMongoId().custom( ExistId ),
     validarCampos
@@ -28,7 +27,6 @@ router.post("/", [
     check('description', 'El campo descripcion es obligatorio').not().isEmpty().custom( ExistDescription ),
     check('address', 'El campo Direccion es obligatorio').not().isEmpty().custom( ExistAddress ),
     check('city', 'El campo Ciudad es obligatorio').not().isEmpty().custom( ExistCity ),
-    check('ImgRestaurant', 'El campo de la imagen URL es obligatorio').not().isEmpty().custom( ExistImgUrl ),
     validarCampos,
 ] , CreatePostRestaurant);
 
@@ -39,7 +37,6 @@ router.put("/:id", [
     check('description', 'El campo descripcion es obligatorio').not().isEmpty().custom( ExistDescription ),
     check('address', 'El campo Direccion es obligatorio').not().isEmpty().custom( ExistAddress ),
     check('city', 'El campo Ciudad es obligatorio').not().isEmpty().custom( ExistCity ),
-    check('ImgRestaurant', 'El campo de la imagen URL es obligatorio').not().isEmpty().custom( ExistImgUrl ),
     validarCampos, ] , RestaurantPut);
 
 
