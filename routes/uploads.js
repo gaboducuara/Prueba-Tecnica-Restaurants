@@ -14,6 +14,7 @@ const router = Router();
 
 router.post('/', ValidateArchive , uploadFiles )
 
+ /// Actualizacion de imagen a los datos del restaurante
  /// --- > se debe agregar /Restaurant/:id, al endpoints
 router.put('/:colleccion/:id', [
     ValidateArchive , 

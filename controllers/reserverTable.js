@@ -46,12 +46,6 @@ const CreatePostReserve = async (req = request, res = response) => {
   }
   //Generar la Data a guardar
   const dataApp = {
-    // ...body,
-    // name:body.name,
-    // restaurant: req.Restaurant.toJSON().id,
-    // restaurant: req.Restaurant._id
-    // ...data
-
     name, 
     restaurant: req.Restaurant._id
 };
