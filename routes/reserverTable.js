@@ -8,6 +8,7 @@ const {
     // ReserveDelete
 } = require("../controllers/reserverTable");
 const { validarCampos } = require("../middlewares/validar-campos");
+const { validarjwt } = require ('../middlewares/validar-jwt')
 
 
 const router = Router();
@@ -17,7 +18,7 @@ const router = Router();
  // ----> obtener todas las reservas por id
 // router.get("/:id", reserveGetById);
   // ----> crear reservas
-router.post("/", [
+router.post("/", validarjwt , [
   check('name', 'El campo nombre es obligatorio').not().isEmpty(),
   validarCampos ,
 ] , CreatePostReserve);

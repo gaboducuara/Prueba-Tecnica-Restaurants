@@ -1,4 +1,3 @@
-// const mongoose = require('mongoose');
 const {Schema , model } = require('mongoose');
 
 const ReserveSchema = Schema ({
@@ -17,10 +16,7 @@ const ReserveSchema = Schema ({
         ref:'Restaurant',
         required: true,
     }, 
-    // {
-    //     versionKey: false, 
-    //     timestamps: true
-    // }
+
 })
 
 ReserveSchema.methods.toJSON = function() {

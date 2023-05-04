@@ -35,8 +35,9 @@ const reserveGetById = async (req = request, res = response) => {
 };
                           // Crear Reservas
 const CreatePostReserve = async (req = request, res = response) => {
-  const {state,  name , ...body} = req.body
-  const ReserveDB = await Reserve.findOne({name: body.name});
+  // const {state,  name , ...body} = req.body}
+  const name = req.body.name
+  const ReserveDB = await Reserve.findOne({ name });
 
   if (ReserveDB) {
     return res.status(400).json({
@@ -45,12 +46,16 @@ const CreatePostReserve = async (req = request, res = response) => {
   }
   //Generar la Data a guardar
   const dataApp = {
-    ...body,
-    name:body.name,
-    restaurant: req.Restaurant.toJSON().id,
+    // ...body,
+    // name:body.name,
+    // restaurant: req.Restaurant.toJSON().id,
+    // restaurant: req.Restaurant._id
     // ...data
-  };
-  // console.log(req.restaurant._id)
+
+    name, 
+    restaurant: req.Restaurant._id
+};
+  
   const DataReserve = new Reserve(dataApp);
   //GuardarDB
   await DataReserve.save();
