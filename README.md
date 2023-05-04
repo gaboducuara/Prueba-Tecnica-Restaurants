@@ -1,8 +1,5 @@
 # Sistema de reserva en Restaurantes  🙌
 
-[Administrador de tareas](https://vitejs-administrador-tareas.vercel.app/ "Administrador de tareas")
-
-
 El siguiente backend consta de los siguientes modulos los cuales son :
 
 -	Administrar restaurantes:  Crear un CRUD (Crear , editar y eliminar) 
