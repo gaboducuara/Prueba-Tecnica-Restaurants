@@ -63,8 +63,4 @@ Para el entorno de desarrollo de la app se utilizo node js y express para la inf
 
 - [LINK BACKEND  ](https://github.com/gaboducuara/Prueba-Tecnica-Restaurants "LINK DEL BACKEND ")
 
-
-
-Puedes ver la aplicacion funcionando en produccion mediante este link:[Administrador de tareas](https://vitejs-administrador-tareas.vercel.app/ "Administrador de tareas")
-
 Si llegaste aqui gracias 🙏🏼 me gusta ser leido, Buen Dia.
