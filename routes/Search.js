@@ -3,9 +3,6 @@ const  { Search }  = require('../controllers/Search')
 
 // middlewares
 const { validarCampos } = require('../middlewares/validar-campos');
-/// -------> DB - Validators
-const { ExistName } = require("../helpers/db-validator");
-const { check } = require('express-validator');
 
 const router = Router();
 
