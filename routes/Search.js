@@ -11,7 +11,6 @@ const router = Router();
 
 // ---- BUSCAR UN restaurante por ID y nombre
 router.get('/:colleccion/:termino', [
-    check('name', 'El campo nombre es obligatorio').not().isEmpty().custom( ExistName ),
     validarCampos,
 ] , Search)
 
